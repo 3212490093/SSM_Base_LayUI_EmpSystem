@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <!--1、开启注解驱动-->
+    <mvc:annotation-driven/>
+    <!--2、启用静态资源-->
+    <!--允许访问项目中的js、css、图片、视频文件等等-->
+    <mvc:default-servlet-handler/>
+    <!--3、配置视图解释器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--配置访问路径的前缀-->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!--配置访问路径的后缀-->
+        <!--<property name="suffix" value=".jsp"/>-->
+    </bean>
+</beans>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+">
+    <!--启用组件扫描-->
+    <context:component-scan base-package="com.java.emp.*"/>
+
+    <!--1、加载配置文件-->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!--2、配置数据源-->
+    <bean name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!--配置数据库连接四大件-->
+        <property name="driverClass" value="${db.driverClass}"/>
+        <property name="jdbcUrl" value="${db.jdbcUrl}"/>
+        <property name="user" value="${db.user}"/>
+        <property name="password" value="${db.password}"/>
+        <!--其他配置-->
+        <property name="maxPoolSize" value="5"/>
+        <property name="minPoolSize" value="1"/>
+    </bean>
+
+    <!--3、配置mybatis的会话工厂bean-->
+    <bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--1.配置会话工厂的数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--2.读取mybatis-config.xml文件-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!--3.配置实体封装类的别名-->
+        <property name="typeAliasesPackage" value="com.java.emp.entity"/>
+        <!--4.配置Mapper.xml的路径-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+    <!--4、配置匿名Mapper映射-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--1.引入sql会话工厂-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--2.映射Mapper包的扫描器-->
+        <property name="basePackage" value="com.java.emp.mapper"/>
+    </bean>
+
+    <!--5、使用spring管理mybatis的事务管理器-->
+    <bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--引入数据源-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--6、配置事务注解驱动-->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+</beans>
