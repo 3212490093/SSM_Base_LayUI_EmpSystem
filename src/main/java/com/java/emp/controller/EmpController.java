@@ -11,4 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/emp")
 public class EmpController extends BaseController<Emp> {
+
+
 }

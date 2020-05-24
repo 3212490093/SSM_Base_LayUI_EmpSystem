@@ -14,6 +14,29 @@
   <sql id="Base_Column_List" >
     empno, ename, job, mgr, sal, hiredate, comm, deptno
   </sql>
+
+  <!--自定义的内容-->
+  <!--员工与部门的映射结果集-->
+  <resultMap id="selEmpAndDeptAll" type="emp" extends="BaseResultMap">
+    <association property="dept" column="deptno"
+                 select="com.java.emp.mapper.DeptMapper.selectByPrimaryKey"/>
+  </resultMap>
+
+  <!--查询所有员工和部门信息-->
+  <select id="selWherePageAll" resultMap="selEmpAndDeptAll">
+    SELECT <include refid="Base_Column_List"/>
+    FROM emp
+    <where>
+      <if test="t.ename!=null and t.ename!=''">
+        ename like concat("%",#{t.ename},"%")
+      </if>
+      <if test="t.deptno!=null and t.deptno!=0">
+        and deptno=#{t.deptno}
+      </if>
+    </where>
+    order by empno desc
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Component
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
-public class Emp {
+public class Emp implements Serializable {
     /** 员工编号 */
     private Integer empno;
 
@@ -33,6 +34,9 @@ public class Emp {
 
     /** 部门编号 */
     private Integer deptno;
+
+    /* 部门信息 */
+    private Dept dept;
 
     public Integer getEmpno() {
         return empno;
@@ -96,6 +100,14 @@ public class Emp {
 
     public void setDeptno(Integer deptno) {
         this.deptno = deptno;
+    }
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
     }
 
     @Override

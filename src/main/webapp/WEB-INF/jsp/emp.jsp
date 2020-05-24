@@ -34,7 +34,7 @@
                 <form class="layui-form" action="" >
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <select id="querySelect" name="goodType">
+                            <select id="querySelect" name="dept">
                                 <%--js动态添加--%>
                             </select>
                         </div>

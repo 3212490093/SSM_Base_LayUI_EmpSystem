@@ -11,4 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/dept")
 public class DeptController extends BaseController<Dept> {
+
+
 }

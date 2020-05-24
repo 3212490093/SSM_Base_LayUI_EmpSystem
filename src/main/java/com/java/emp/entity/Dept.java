@@ -3,9 +3,11 @@ package com.java.emp.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 @Component
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
-public class Dept {
+public class Dept implements Serializable {
     /** 部门编号 */
     private Integer deptno;
 
