@@ -12,5 +12,6 @@
 </head>
 <body>
     <h1><font color="green">欢迎你</font></h1>
+    <a href="/model/toEmp">去到员工管理界面</a>
 </body>
 </html>
